@@ -81,16 +81,15 @@ class MySubscribeCallback(SubscribeCallback):
         pass  # handle incoming presence data
  
     def message(self, pubnub, message):
+        global flag
         if message.message == 'ON':
-        	global flag
-        	flag = 1
+            flag = 1
         elif message.message == 'OFF':
-			global flag
-			flag = 0
+            flag = 0
         elif message.message == 'WATER':
-        	pump.off()
-        	sleep(5)
-        	pump.on()
+            pump.off()
+            sleep(5)
+            pump.on()
  
  
 pubnub.add_listener(MySubscribeCallback())
