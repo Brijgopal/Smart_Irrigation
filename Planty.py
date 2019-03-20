@@ -133,10 +133,10 @@ def publish_callback(result, status):
 
 def get_status():
     if soil.is_held:
-        print 'dry'
+        print('dry')
         return True
     else:
-        print 'wet'
+        print('wet')
         return False
 
 
@@ -163,10 +163,10 @@ while True:
                                   publish_callback)
         wet = get_status()
         if wet == True:
-            print 'turning on'
+            print('turning on')
             pump.off()
             sleep(5)
-            print 'pump turning off'
+            print('pump turning off')
             pump.on()
             sleep(1)
         else:
