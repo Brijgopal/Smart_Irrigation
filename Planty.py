@@ -110,9 +110,7 @@ def get_status():
 
 while True:
     if flag ==1:
-        # Try to grab a sensor reading.  Use the read_retry method which will retry up
-        # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
-	humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+        humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 	DHT_Read = ('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
 	print(DHT_Read)
 	dictionary = {"eon": {"Temperature": temperature, "Humidity": humidity}}
