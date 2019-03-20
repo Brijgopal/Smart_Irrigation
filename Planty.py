@@ -133,11 +133,11 @@ def publish_callback(result, status):
 
 def get_status():
     if soil.is_held:
-        print('dry')
-        return True
-    else:
         print('wet')
         return False
+    else:
+        print('dry')
+        return True
 
 
 while True:
