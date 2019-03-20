@@ -146,7 +146,7 @@ while True:
         DHT_Read = \
             'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,
                 humidity)
-        print DHT_Read
+        print(DHT_Read)
         dictionary = {'eon': {'Temperature': temperature,
                       'Humidity': humidity}}
 
