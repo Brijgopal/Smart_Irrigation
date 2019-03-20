@@ -3,6 +3,7 @@ import Adafruit_DHT
 from gpiozero import LED, Button
 from time import sleep
 
+from multiprocessing import Pool
 
 import pubnub
 from pubnub.pnconfiguration import PNConfiguration
@@ -116,8 +117,14 @@ while True:
 		print(DHT_Read)
 
 		dictionary = {"eon": {"Temperature": temperature, "Humidity": humidity}}
-		pubnub.publish().channel('ch2').message([DHT_Read]).async(publish_callback)
-		pubnub.publish().channel("eon-chart").message(dictionary).async(publish_callback)
+		#pubnub.publish().channel('ch2').message([DHT_Read]).async(publish_callback)
+		#pubnub.publish().channel("eon-chart").message(dictionary).async(publish_callback)
+
+		pool = Pool(processes=1)              # Start a worker processes.
+                result = pool.apply_async(pubnub.publish().channel('ch2').message([DHT_Read]), [], publish_callback)
+
+                pool = Pool(processes=1)
+                result = pool.apply_async(pubnub.publish().channel("eon-chart").message(dictionary), [], publish_callback)
 
 		wet = get_status()
 		
