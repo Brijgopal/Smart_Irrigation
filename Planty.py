@@ -43,7 +43,7 @@ class MySubscribeCallback(SubscribeCallback):
         pass
 
     def presence(self, pubnub, presence):
-        pass  # handle incoming presence data
+        pass
 
     def message(self, pubnub, message):
         global flag
@@ -81,7 +81,7 @@ while True:
         DHT_Read = 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,humidity)
         print(DHT_Read)
         dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
-        pubnub.publish().channel('ch2').message([DHT_Read]).pn_async(publish_callback)
+        pubnub.publish().channel('ch2').message(DHT_Read).pn_async(publish_callback)
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
 
         wet = get_status()
@@ -94,7 +94,7 @@ while True:
             sleep(1)
         else:
             pump.on()
-        sleep(1)
+            sleep(1)
     elif flag == 0:
         pump.on()
         sleep(3)
