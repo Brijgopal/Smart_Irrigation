@@ -14,8 +14,8 @@ from pubnub.callbacks import SubscribeCallback
 from pubnub.enums import PNOperationType, PNStatusCategory
 
 pnconfig = PNConfiguration()
-pnconfig.subscribe_key = 'sub-c-4143a002-4a53-11e9-bc27-728c10c631fc'
 pnconfig.publish_key = 'pub-c-c823b87a-2007-4df2-88da-ad535587f882'
+pnconfig.subscribe_key = 'sub-c-4143a002-4a53-11e9-bc27-728c10c631fc'
 pnconfig.ssl = False
 
 pubnub = PubNub(pnconfig)
@@ -79,8 +79,7 @@ while True:
     if flag == 1:
         (humidity, temperature) = Adafruit_DHT.read_retry(sensor, pin)
         
-        DHT_Read = \
-            'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,humidity)
+        DHT_Read = 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,humidity)
         print(DHT_Read)
         dictionary = {'eon': [temperature, humidity]}
         pubnub.publish().channel('ch2').message([DHT_Read])
