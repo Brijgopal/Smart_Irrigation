@@ -34,6 +34,8 @@ pin = 17
 soil = Button(14)
 
 flag = 5
+TVal = -1
+HVal = -1
 
 pump.on()
 
@@ -46,14 +48,17 @@ class MySubscribeCallback(SubscribeCallback):
         pass
 
     def message(self, pubnub, message):
-        global flag
-        if message.message == 'ON':
+        global flag, TVal, HVal
+        if message.message.cmd == 'ON':
             flag = 1
-        elif message.message == 'OFF':
-            flag = 0
-        elif message.message == 'WATER':
-            flag = -1
+            TVal = message.message.TVal
+            HVal = message.message.HVal
 
+        elif message.message.cmd == 'OFF':
+            flag = 0
+
+        elif message.message.cmd == 'WATER':
+            flag = -1
 
 pubnub.add_listener(MySubscribeCallback())
 pubnub.subscribe().channels('ch1').execute()
@@ -84,7 +89,7 @@ while True:
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
 
         wet = get_status()
-        if wet == True:
+        if wet == True and (humidity<HVal and temperature>TVal):
             print('turning on')
             pump.off()
             sleep(5)

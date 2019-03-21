@@ -8,7 +8,10 @@
 
 	<button type="button" onclick="publish('ON')">Auto Mode ON</button>
 	<button type="button" onclick="publish('OFF')">Auto Mode OFF</button>
-	<button type="button" onclick="publish('WATER')">Water Plant</button>
+    <button type="button" onclick="publish('WATER')">Water Plant</button>
+    
+    <input type="text" id="TVal" placeholder="Threshold Temperature">
+    <input type="text" id="HVal" placeholder="Threshold Humidity">
 
 	<p id="sensorData">Temperature and Humidity Data</p>
 
@@ -27,11 +30,15 @@
 		});
 
 
-		function publish(a) {
+		function publish(command) {
 			const publishConfig =
 			{
 				channel: "ch1",
-				message: a
+				message: {
+                    cmd: command,
+                    TVal: parseInt(document.getElementById("TVal").value, 3),
+                    HVal: parseInt(document.getElementById("HVal").value, 3)
+                }
 			};
 
 			pubnub.publish(publishConfig, function (status, response) {
