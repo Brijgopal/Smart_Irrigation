@@ -103,7 +103,7 @@ while True:
         sleep(5)
         pump.on()
     
-    else
+    else:
         pump.on()
         sleep(3)
         
