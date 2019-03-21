@@ -48,9 +48,7 @@ class MySubscribeCallback(SubscribeCallback):
         pass
 
     def message(self, pubnub, message):
-        global flag
-        global HVal
-        global TVal
+        global flag, TVal, HVal
         if message.message['cmd'] == 'ON':
             flag = 1
             TVal = message.message['TVal']
