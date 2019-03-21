@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Demo</h1>
+    <input type="button" onclick="publish('ON')" value="Auto Mode ON" >
+    <input type="button" onclick="publish('OFF')" value="Auto Mode OFF">
+    <input type="button" onclick="publish('WATER')" value="Water Plant">
+    
+    <p id="sensorData">Temperature and Humidity Data</p>
+
+    <div id="chart"></div>
+
+    <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/1.0.0/eon.css"/>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.23.0.js"></script>
+
+    <script>
+        function publish(msg) {
+
+            pubnub = new PubNub({
+                publishKey: 'pub-c-c823b87a-2007-4df2-88da-ad535587f882',
+                subscribeKey: 'sub-c-4143a002-4a53-11e9-bc27-728c10c631fc',
+            });
+
+            eon.chart({
+                channels: ['eon-chart'],
+                history: true,
+                flow: true,
+                pubnub: pubnub,
+                generate: {
+                    bindto: '#chart',
+                    data: {
+                        labels: false
+                    }
+                }
+            });
+
+            function publishSampleMessage() {
+                console.log("In Sample.");
+
+                var publishConfig = {
+                    channel: "ch2",
+                    message: msg
+                }
+                setInterval(function () {
+                    pubnub.publish(publishConfig, function (status, response) {
+                        console.log(status);
+                        console.log(response);
+                        console.log("inside publish_Sample");
+
+                    });
+                }, 5000);
+            }
+
+            pubnub.addListener({
+                status: function (statusEvent) {
+                    if (statusEvent.category === "PNConnectedCategory") {
+                        publishSampleMessage();
+                    }
+                },
+                message: function (m) {
+                    const message = m.message;
+                    console.log("==========");
+                    console.log(message);
+                    console.log("==========");
+                    document.getElementById("sensorData").innerHTML = message;
+                },
+                presence: function (presenceEvent) {
+                    // handle presence
+                }
+            })
+
+
+            pubnub.subscribe({ channels: ['ch2'] });
+        };
+    </script>
+</body>
+
+</html>
