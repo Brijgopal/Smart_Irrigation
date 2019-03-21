@@ -39,7 +39,6 @@
 
 	<script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
 	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.20.2.js"></script>
-
 	<script>
 
 		const pubnub = new PubNub({
@@ -47,10 +46,9 @@
 			subscribeKey: 'sub-c-4143a002-4a53-11e9-bc27-728c10c631fc',
 		});
 
-
 		function publish(command) {
-            console.log(parseFloat(document.getElementById("TVal").value));
-            
+            document.getElementById("TVal").defaultValue="0";
+            document.getElementById("HVal").defaultValue="0";
 			const publishConfig =
 			{
 				channel: "ch1",
@@ -88,35 +86,12 @@
 				    document.getElementById("sensorData").innerHTML = msg;
 
 				console.log(msg)
-			},
-			presence: function (p) {
-				// handle presence
-				const action = p.action;
-			},
-			status: function (s) {
-				const affectedChannelGroups = s.affectedChannelGroups;
 			}
 		});
 
 		pubnub.subscribe({
-			channels: ['ch2'],
-
+			channels: ['ch2']
 		});
-
-        
-		/* setInterval(function () {
-			pubnub.publish({
-				channel: 'eon-chart',
-				message: {
-					eon: {
-						'Austin': Math.floor(Math.random() * 99),
-						'New York': Math.floor(Math.random() * 99),
-						'San Francisco': Math.floor(Math.random() * 99),
-						'Portland': Math.floor(Math.random() * 99)
-					}
-				}
-			});
-		}, 1000); */
 
 	</script>
 </body>
