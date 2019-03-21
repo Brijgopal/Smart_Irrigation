@@ -49,15 +49,15 @@ class MySubscribeCallback(SubscribeCallback):
 
     def message(self, pubnub, message):
         global flag, TVal, HVal
-        if message.cmd == 'ON':
+        if message.message['cmd'] == 'ON':
             flag = 1
-            TVal = message.TVal
-            HVal = message.message.HVal
+            TVal = message.message['TVal']
+            HVal = message.message['HVal']
 
-        elif message.cmd == 'OFF':
+        elif message.message['cmd'] == 'OFF':
             flag = 0
 
-        elif message.cmd == 'WATER':
+        elif message.message['cmd'] == 'WATER':
             flag = -1
 
 pubnub.add_listener(MySubscribeCallback())
