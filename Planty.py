@@ -17,26 +17,21 @@ pnconfig = PNConfiguration()
 pnconfig.publish_key = 'pub-c-c823b87a-2007-4df2-88da-ad535587f882'
 pnconfig.subscribe_key = 'sub-c-4143a002-4a53-11e9-bc27-728c10c631fc'
 pnconfig.ssl = False
-
 pubnub = PubNub(pnconfig)
 
 # Pump is connected to GPIO4 as an LED
-
 pump = LED(4)
 
 # DHT Sensor is connected to GPIO17
-
 sensor = 11
 pin = 17
 
 # Soil Moisture sensor is connected to GPIO14 as a button
-
 soil = Button(14)
 
 flag = 5
 TVal = -1
 HVal = -1
-
 pump.on()
 
 class MySubscribeCallback(SubscribeCallback):
