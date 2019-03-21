@@ -82,7 +82,6 @@ while True:
     (humidity, temperature) = Adafruit_DHT.read_retry(sensor, pin)
     DHT_Read = 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,humidity)
     dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
-    print('flag: ', flag)
 
     if flag == 1:
         print(DHT_Read)
@@ -91,6 +90,7 @@ while True:
 
         dry = get_status()
         print('dry: ', dry)
+        print('HVal: ', HVal, '\t\tTVal', TVal)
         if dry == True and (humidity<HVal or temperature>TVal):
             print('turning on')
             pump.off()
