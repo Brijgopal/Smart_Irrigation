@@ -51,7 +51,6 @@ class MySubscribeCallback(SubscribeCallback):
         	sleep(5)
         	pump.on()
  
- 
 pubnub.add_listener(MySubscribeCallback())
 pubnub.subscribe().channels('ch1').execute()
 
