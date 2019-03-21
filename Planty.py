@@ -102,6 +102,7 @@ while True:
         pump.off()
         sleep(5)
         pump.on()
+        flag = 5
     
     else:
         pump.on()
