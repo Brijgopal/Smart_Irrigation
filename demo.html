@@ -23,31 +23,31 @@
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.23.0.js"></script>
 
     <script>
-        function publish(msg) {
-
-            pubnub = new PubNub({
-                publishKey: 'pub-c-c823b87a-2007-4df2-88da-ad535587f882',
-                subscribeKey: 'sub-c-4143a002-4a53-11e9-bc27-728c10c631fc',
-            });
-
-            eon.chart({
-                channels: ['eon-chart'],
-                history: true,
-                flow: true,
-                pubnub: pubnub,
-                generate: {
-                    bindto: '#chart',
-                    data: {
-                        labels: false
-                    }
+        var pubnub = new PubNub({
+            publishKey: 'pub-c-c823b87a-2007-4df2-88da-ad535587f882',
+            subscribeKey: 'sub-c-4143a002-4a53-11e9-bc27-728c10c631fc',
+        });
+        
+        eon.chart({
+            channels: ['Mychart'],
+            history: true,
+            flow: true,
+            pubnub: pubnub,
+            generate: {
+                bindto: '#chart',
+                data: {
+                    labels: false
                 }
-            });
+            }
+        });
 
+
+        function publish(msg) {
             function publishSampleMessage() {
                 console.log("In Sample.");
 
                 var publishConfig = {
-                    channel: "ch2",
+                    channel: "ch1",
                     message: msg
                 }
                 setInterval(function () {
