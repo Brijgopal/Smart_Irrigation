@@ -70,10 +70,10 @@ def publish_callback(result, status):
 
 def get_status():
     if soil.is_held:
-        print('wet')
+        print('Wet soil detected')
         return False
     else:
-        print('dry')
+        print('Dry soil detected')
         return True
 
 
@@ -89,13 +89,11 @@ while True:
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
 
         dry = get_status()
-        print('dry: ', dry)
-        print('HVal: ', HVal, '\t\tTVal', TVal)
         if dry == True and (humidity<HVal or temperature>TVal):
-            print('turning on')
+            print('\t\tPump ---> ON')
             pump.off()
             sleep(5)
-            print('pump turning off')
+            print('\t\tPump ---> OFF')
             pump.on()
             sleep(1)
         else:
