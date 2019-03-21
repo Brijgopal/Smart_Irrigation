@@ -84,10 +84,10 @@ while True:
     dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
 
     if flag == 1:
-        print(DHT_Read, end="\t")
         pubnub.publish().channel('ch2').message(DHT_Read).pn_async(publish_callback)
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
 
+        print(DHT_Read),
         dry = get_status()
         if dry == True and (humidity<HVal or temperature>TVal):
             print('\t\tPump ---> ON')
