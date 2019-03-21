@@ -80,11 +80,11 @@ def get_status():
 while True:
     
     (humidity, temperature) = Adafruit_DHT.read_retry(sensor, pin)
-    DHT_Read = 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,humidity)
+    DHT_Read = 'Temp={0:0.1f}*C\tHumidity={1:0.1f}%'.format(temperature,humidity)
     dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
 
     if flag == 1:
-        print(DHT_Read)
+        print(DHT_Read, end="\t")
         pubnub.publish().channel('ch2').message(DHT_Read).pn_async(publish_callback)
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
 
