@@ -82,7 +82,7 @@ while True:
         DHT_Read = 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,humidity)
         print(DHT_Read)
         dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
-        pubnub.publish().channel('ch2').message([DHT_Read])
+        pubnub.publish().channel('ch2').message(DHT_Read)
         pubnub.publish().channel("eon-chart").message(dictionary)
 
         wet = get_status()
