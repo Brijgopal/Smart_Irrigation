@@ -36,7 +36,7 @@ soil = Button(14)
 flag = 1
 
 pump.on()
-
+print('hello')
 
 class MySubscribeCallback(SubscribeCallback):
 
