@@ -84,7 +84,7 @@ while True:
         print(DHT_Read)
         dictionary = {'eon': [temperature, humidity]}
         pubnub.publish().channel('ch2').message([DHT_Read])
-		pubnub.publish().channel("eon-chart").message([dictionary])
+        pubnub.publish().channel("eon-chart").message([dictionary])
 
         wet = get_status()
         if wet == True:
