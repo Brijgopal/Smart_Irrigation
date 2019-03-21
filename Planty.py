@@ -148,13 +148,14 @@ while True:
             'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,humidity)
         print(DHT_Read)
         dictionary = {'eon': [temperature, humidity]}
-        pubnub.publish().channel('ch2').message([DHT_Read])
+        pubnub.publish().channel('ch2').message(dictionary)
+        '''
         pubnub.publish().channel('Mychart').message(dictionary)
-
-        #pool = Pool(processes=1)
-        #result = pool.apply_async(pubnub.publish().channel('ch2').message([DHT_Read]), [],publish_callback)
-        #pool = Pool(processes=1)
-        #result = pool.apply_async(pubnub.publish().channel('eon-chart').message(dictionary), [],publish_callback)
+        pool = Pool(processes=1)
+        result = pool.apply_async(pubnub.publish().channel('ch2').message([DHT_Read]), [],publish_callback)
+        pool = Pool(processes=1)
+        result = pool.apply_async(pubnub.publish().channel('eon-chart').message(dictionary), [],publish_callback)
+        '''
         wet = get_status()
         if wet == True:
             print('turning on')
