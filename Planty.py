@@ -89,9 +89,9 @@ while True:
         pubnub.publish().channel('ch2').message(DHT_Read).pn_async(publish_callback)
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
 
-        wet = get_status()
-        print('wet: ', wet)
-        if wet == False and (humidity<HVal or temperature>TVal):
+        dry = get_status()
+        print('dry: ', dry)
+        if dry == True and (humidity<HVal or temperature>TVal):
             print('turning on')
             pump.off()
             sleep(5)
