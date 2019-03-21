@@ -33,7 +33,7 @@ pin = 17
 
 soil = Button(14)
 
-flag = 1
+flag = 5
 
 pump.on()
 
@@ -52,9 +52,7 @@ class MySubscribeCallback(SubscribeCallback):
         elif message.message == 'OFF':
             flag = 0
         elif message.message == 'WATER':
-            pump.off()
-            sleep(5)
-            pump.on()
+            flag = -1
 
 
 pubnub.add_listener(MySubscribeCallback())
@@ -75,7 +73,7 @@ def get_status():
 
 
 while True:
-
+    
     (humidity, temperature) = Adafruit_DHT.read_retry(sensor, pin)
     DHT_Read = 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,humidity)
     dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
@@ -84,8 +82,8 @@ while True:
         print(DHT_Read)
         pubnub.publish().channel('ch2').message(DHT_Read).pn_async(publish_callback)
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
-        wet = get_status()
 
+        wet = get_status()
         if wet == True:
             print('turning on')
             pump.off()
@@ -97,9 +95,15 @@ while True:
             pump.on()
             sleep(1)
             
-    elif flag == 0:
+    elif flag == -1:
         print(DHT_Read)
         pubnub.publish().channel('ch2').message(DHT_Read).pn_async(publish_callback)
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
+        pump.off()
+        sleep(5)
+        pump.on()
+    
+    else
         pump.on()
         sleep(3)
+        
