@@ -10,21 +10,47 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
 </head>
-<body class="">
+<body class="body">
 
-	<h1>IoT Plant</h1>
-
-	<button type="button" onclick="publish('ON')" class="btn btn-success">Auto Mode ON</button>
-	<button type="button" onclick="publish('OFF')" class="btn btn-danger">Auto Mode OFF</button>
-    <button type="button" onclick="publish('WATER')" class="btn btn-primary">Manual Water ON</button>
+    <h1 id="heading">Smart Farming Irrigation System</h1>
     
-    <input type="text" id="TVal" placeholder="Threshold Temperature">
-    <label for="TVal"><sup>0</sup>C</label>
-    <input type="text" id="HVal" placeholder="Threshold Humidity">
-    <label for="HVal"><strong>%</strong></label>
-
-	<p id="sensorData">Temperature and Humidity Data</p>
-    <div id="chart"></div>
+    
+    <nav class="navbar navbar-light" id="nav_bar">
+        <!-- Navbar content -->
+        <div class="container">
+    
+            <button type="button" onclick="publish('ON')" class="btn btn-success">Auto Mode ON</button>
+            <button type="button" onclick="publish('OFF')" class="btn btn-danger">Auto Mode OFF</button>
+            <button type="button" onclick="publish('WATER')" class="btn btn-info">Manual Water ON</button>
+    
+            <form class="form-inline my-2 my-lg-0">
+    
+                <div class="input-group mx-2">
+                    <input class="form-control" type="text" id="TVal" placeholder="Threshold Temperature">
+                    <!-- <label for="TVal"></label> -->
+                    <div class="input-group-append">
+                        <button class="input-group-text"><sup>0</sup>C</button>
+                    </div>
+                </div>
+    
+                <div class="input-group">
+                    <input class="form-control" type="text" id="HVal" placeholder="Threshold Humidity">
+                    <!-- <label for="HVal"></label> -->
+                    <div class="input-group-append">
+                        <button class="input-group-text"><strong>%</strong></button>
+                    </div>
+                </div>
+    
+    
+            </form>
+        </div>
+    
+    </nav>
+    <div class="container">
+    
+        <p id="sensorData">Temperature and Humidity Data</p>
+        <div id="chart"></div>
+    </div>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
