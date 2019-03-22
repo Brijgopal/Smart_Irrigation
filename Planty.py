@@ -75,10 +75,10 @@ while True:
     
     (humidity, temperature) = Adafruit_DHT.read_retry(sensor, pin)
     DHTVal = 'Temp={0:0.1f}*C\tHumidity={1:0.1f}%\t'.format(temperature,humidity)
-    dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
 
     if cmd == 1:
 
+        dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
         pubnub.publish().channel('ch2').message(DHTVal).pn_async(publish_callback)
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
         
@@ -98,6 +98,7 @@ while True:
     elif cmd == 2:
 
         print(DHTVal)
+        dictionary = {'eon': {'Temperature': temperature, 'Humidity': humidity}}
         pubnub.publish().channel('ch2').message(DHTVal).pn_async(publish_callback)
         pubnub.publish().channel("eon-chart").message(dictionary).pn_async(publish_callback)
         pump.off()

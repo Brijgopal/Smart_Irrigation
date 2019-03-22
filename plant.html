@@ -14,7 +14,6 @@
 
 	<h1>IoT Plant</h1>
 
-
 	<button type="button" onclick="publish('ON')" class="btn btn-success">Auto Mode ON</button>
 	<button type="button" onclick="publish('OFF')" class="btn btn-danger">Auto Mode OFF</button>
     <button type="button" onclick="publish('WATER')" class="btn btn-primary">Manual Water ON</button>
@@ -66,13 +65,13 @@
 		
 		eon.chart({
 			channels: ['eon-chart'],
-			history: true,
+			history: false,
 			flow: true,
 			pubnub: pubnub,
 			generate: {
 				bindto: '#chart',
 				data: {
-					labels: false
+					labels: true
 				}
 			}
 		});
